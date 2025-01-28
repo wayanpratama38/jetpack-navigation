@@ -58,4 +58,6 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
     // ViewModel untuk Compose
     implementation(libs.androidx.lifecycle.viewmodel.compose)
+    // Navigation untuk Compose
+    implementation(libs.androidx.navigation.compose)
 }
