@@ -26,8 +26,8 @@ import com.example.navgraph.ui.theme.NavGraphTheme
 fun ProductCounter(
     orderId : Long,
     orderCount : Int,
-    onProductIncrease : (Long) -> Unit,
-    onProductDecrease : (Long) -> Unit,
+    onProductIncreased : (Long) -> Unit,
+    onProductDecreased : (Long) -> Unit,
     modifier : Modifier = Modifier
 ){
     Row(
@@ -52,7 +52,7 @@ fun ProductCounter(
                 modifier = Modifier
                     .weight(1f)
                     .clickable{
-                        onProductDecrease(orderId)
+                        onProductDecreased(orderId)
                     }
             )
         }
@@ -79,7 +79,7 @@ fun ProductCounter(
                 modifier = Modifier
                     .weight(1f)
                     .clickable{
-                        onProductIncrease(orderId)
+                        onProductIncreased(orderId)
                     }
             )
         }

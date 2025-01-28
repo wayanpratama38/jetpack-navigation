@@ -17,12 +17,12 @@ import com.example.navgraph.ui.theme.NavGraphTheme
 fun OrderButton(
     text : String,
     modifier : Modifier = Modifier,
-    enable : Boolean = true,
+    enabled : Boolean = true,
     onClick : () -> Unit
 ){
     Button(
         onClick = onClick,
-        enabled = enable,
+        enabled = enabled,
         modifier = modifier.fillMaxWidth().height(52.dp)
     ) {
         Text(
