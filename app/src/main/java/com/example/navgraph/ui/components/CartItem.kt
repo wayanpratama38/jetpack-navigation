@@ -69,8 +69,14 @@ fun CartItem(
             )
         }
         // ProductCounter
-
-
+        ProductCounter(
+            orderId = rewardId,
+            orderCount = count,
+            onProductIncrease = { onProductionCountChange(rewardId,count+1) },
+            onProductDecrease = { onProductionCountChange(rewardId,count-1) },
+            modifier = Modifier
+                .padding(8.dp)
+        )
     }
 }
 
