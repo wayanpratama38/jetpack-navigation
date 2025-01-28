@@ -11,6 +11,8 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
 
 class HomeViewModel(private val repository: RewardRepository): ViewModel() {
+
+    // Inisialisasi state Ui
     private val _uiState : MutableStateFlow<UiState<List<OrderReward>>> = MutableStateFlow(UiState.Loading)
     val uiState : StateFlow<UiState<List<OrderReward>>> get() = _uiState
 

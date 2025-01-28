@@ -11,5 +11,6 @@ class ViewModelFactory(private val repository : RewardRepository) : ViewModelPro
         if(modelClass.isAssignableFrom(HomeViewModel::class.java)){
             return HomeViewModel(repository) as T
         }
+        throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
     }
 }
