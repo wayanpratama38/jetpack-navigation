@@ -1,5 +1,7 @@
 package com.example.navgraph
 
+import android.content.Context
+import android.content.Intent
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
@@ -13,6 +15,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
@@ -115,7 +118,12 @@ fun RewardApp(
                 })
             }
             composable(Screen.Cart.route){
-                CartScreen()
+                val context = LocalContext.current
+                CartScreen(
+                    onOrderButtonClicked = { message ->
+                        shareOrder(context,message)
+                    }
+                )
             }
             composable(Screen.Profile.route){
                 ProfileScreen()
@@ -147,6 +155,32 @@ fun RewardApp(
             }
         }
     }
+}
+
+
+private fun shareOrder(
+    context : Context,
+    summary : String
+){
+    // Membuat intent yang dapat mengirim
+    val intent = Intent(Intent.ACTION_SEND).apply{
+        // Jenis file MIME intent
+        type = "text/plain"
+        // EXTRA SUBJECT untuk judul
+        // EXTRA TEXT untuk isi dari pesan
+        putExtra(Intent.EXTRA_SUBJECT, context.getString(R.string.dicoding_reward))
+        putExtra(Intent.EXTRA_TEXT, summary)
+    }
+
+    // Memulai intent
+    context.startActivity(
+        // Membuat pilihan bagi pengguna
+        // Untuk share ke mana saja
+        Intent.createChooser(
+            intent,
+            context.getString(R.string.dicoding_reward)
+        )
+    )
 }
 
 @Composable
