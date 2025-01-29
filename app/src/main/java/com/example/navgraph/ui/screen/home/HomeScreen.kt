@@ -1,5 +1,6 @@
 package com.example.navgraph.ui.screen.home
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
@@ -32,12 +33,13 @@ fun HomeScreen(
     modifier : Modifier = Modifier,
     viewModel : HomeViewModel = viewModel(
         factory = ViewModelFactory(Injection.provideRepository())
-    )
+    ),
+    navigateToDetail : (Long) -> Unit
 ){
     viewModel.uiState.collectAsState(initial = UiState.Loading).value.let{ uiState ->
         when(uiState){
             is UiState.Loading -> viewModel.getAllRewards()
-            is UiState.Success -> HomeContent(uiState.data,modifier)
+            is UiState.Success -> HomeContent(uiState.data,modifier,navigateToDetail)
             is UiState.Error -> { }
         }
     }
@@ -49,6 +51,7 @@ fun HomeScreen(
 fun HomeContent(
     orderReward : List<OrderReward>,
     modifier : Modifier = Modifier,
+    navigateToDetail: (Long) -> Unit
 ){
     LazyVerticalGrid(
         columns = GridCells.Adaptive(160.dp),
@@ -61,7 +64,10 @@ fun HomeContent(
             RewardItem(
                 image=data.reward.image,
                 title = data.reward.title,
-                requiredPoint = data.reward.requiredPoint
+                requiredPoint = data.reward.requiredPoint,
+                modifier = modifier.clickable{
+                    navigateToDetail(data.reward.id)
+                }
             )
         }
     }
@@ -72,6 +78,6 @@ fun HomeContent(
 @Preview(showBackground = true, device = Devices.PIXEL_4)
 fun HomeScreenPreview(){
     NavGraphTheme {
-        HomeScreen()
+        HomeScreen(navigateToDetail = {})
     }
 }
