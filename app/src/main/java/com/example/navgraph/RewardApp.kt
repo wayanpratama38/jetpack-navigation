@@ -130,7 +130,19 @@ fun RewardApp(
                     navigateBack = {
                         navController.navigateUp()
                     },
-                    navigateToCart = {}
+                    // Navigate dari Detail Reward ke Cart Screen
+                    navigateToCart = {
+                        // Menghilangkan Screen yang sudah pernah ditekan
+                        // Sehingga langsung ke start destination
+                        navController.popBackStack()
+                        navController.navigate(Screen.Cart.route){
+                            popUpTo(navController.graph.findStartDestination().id){
+                                saveState = true
+                            }
+                            launchSingleTop = true
+                            restoreState = true
+                        }
+                    }
                 )
             }
         }
