@@ -35,7 +35,9 @@ import com.example.navgraph.ui.screen.home.HomeScreen
 import com.example.navgraph.ui.screen.profile.ProfileScreen
 import com.example.navgraph.ui.theme.NavGraphTheme
 
-
+// Composable untuk bottom bar
+// Mulai dari membuat list icon
+// Hingga mengatur state destinasi pertama
 @Composable
 private fun BottomBar(
     navController: NavHostController,
@@ -106,12 +108,19 @@ fun RewardApp(
             }
         }
     ) { innerPadding ->
-
+        // Tempat dimana akan disimpan Navigasinya
         NavHost(
+            // Inisialisasi navigasi controller
+            // Destinasi awal
+            // Modifier yang menggunakan innerPadding karena
+            // Menggunakan Scaffold
             navController = navController,
             startDestination = Screen.Home.route,
             modifier = Modifier.padding(innerPadding)
         ){
+            // Dimulai dengan membuat composable
+            // Dari setiap Screen route yang sudah
+            // Ditentukan
             composable(Screen.Home.route){
                 HomeScreen(navigateToDetail = { rewardId->
                     navController.navigate(Screen.DetailReward.createRoute(rewardId))
@@ -128,6 +137,8 @@ fun RewardApp(
             composable(Screen.Profile.route){
                 ProfileScreen()
             }
+            // Ini jika terdapat route lagi didalam route
+            // Misal jika ingin ke detail dari sebuah reward
             composable(
                 route = Screen.DetailReward.route,
                 arguments = listOf(navArgument("rewardId"){ type = NavType.LongType })
@@ -158,6 +169,7 @@ fun RewardApp(
 }
 
 
+// Fungsi untuk mengintent pesan
 private fun shareOrder(
     context : Context,
     summary : String
@@ -183,6 +195,9 @@ private fun shareOrder(
     )
 }
 
+
+
+// Preview
 @Composable
 @Preview(showBackground = true, device = Devices.PIXEL_4)
 fun RewardAppPreview(){

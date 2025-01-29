@@ -1,0 +1,30 @@
+// step - step membuat navigate android
+1. Buat package baru yang didedikasikan untuk Navigation
+2. Membuat Singleton Object Screen
+	- Membuat setiap object dari setiap screen yang akan digunakan
+	Sealed class Screen(val route : String){
+		// Untuk sebuah screen
+		Object Home : Screen(route = "home")
+		
+		// Untuk berpindah dengan paramter
+		Object DetailReward : Screen(route = "home/{rewardId}"{
+			fun createRoute(rewardId : Long) = "home/$rewardId"
+		}
+	}
+3. Membuat NavigationItem
+	- Disini berisikan nantinya akan memiliki judul apa,
+	- icon seperti apa dan screen apa yang ditampilkan
+	- Dibuat dengan data class
+4. Membuat BottomBar Composable Function
+	- Buat dengan paramaternya berisikan navController : NavHostController
+	- Di dalamnya berisikan NavigationItem yang sudah diisi dengan 
+	- judul, icon dan screen yang bersangkutan
+	- Kemudain NavigationItem diiterasi dengan map
+	- untuk diterapkan pada NavigationBarItem()
+5. Memasukkan BottomBar di dalam Scaffold
+	- Di dalam Scaffold pastikan ada NavHost()
+	- dengan paramter navController, dan startDestionation.
+	- Masukkan semua composable dari screen, contoh : 
+		composable(Screen.Home.route){
+			HomeScreen()
+		}
